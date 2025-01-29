@@ -1,0 +1,45 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+    desc "Run Tests"
+    lane :tests do
+
+    sh 'rm -rf ../tests'
+    sh 'mkdir -p ../tests'
+
+    run_tests(
+      skip_build: false,
+      clean: true,
+      device: 'iPhone 16',
+      scheme: "TestPresentTCA",
+      fail_build: true,
+      code_coverage: true,
+      output_directory: "./tests",
+      output_types: "html,junit,json-compilation-database"
+    )
+
+    xcov(
+      scheme: "TestPresentTCA",
+      output_directory: "./tests/xcov",
+      only_project_targets: true,
+      html_report: true,
+      markdown_report: true,
+      json_report: true
+    )
+    end
+end
