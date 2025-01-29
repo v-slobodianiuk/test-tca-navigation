@@ -16,6 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Install bundle
+      run: bundle install
 
     - name: Resolve packages
       run: xcodebuild -resolvePackageDependencies
@@ -27,4 +30,4 @@ jobs:
       run: defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
 
     - name: Run Tests
-      run: xcodebuild test -scheme TestPresentTCA -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0'
+      run: bundle exec fastlane tests
