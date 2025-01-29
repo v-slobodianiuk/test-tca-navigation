@@ -17,8 +17,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    -name: Resolve packages
-    run: xcodebuild -resolvePackageDependencies
+    - name: Resolve packages
+      run: xcodebuild -resolvePackageDependencies
 
-    -name: Run tests
-    run: xcodebuild test
+    - name: Run Tests
+      run: xcodebuild test -scheme TestPresentTCA
